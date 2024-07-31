@@ -1,0 +1,42 @@
+31/07/24
+
+class Solution {
+    public String longestCommonPrefix(String arr[]) {
+        // code here
+        if(arr==null||arr.length==0) 
+            return "-1";
+        String prefix=arr[0]; 
+        for(int i=1;i<arr.length;i++){
+            while(arr[i].indexOf(prefix)!=0){
+                prefix=prefix.substring(0,prefix.length()-1);
+                if(prefix.length()==0)
+                    return "-1";
+            }
+        }
+        return prefix;
+    }
+}
+
+
+Explanation
+-Initial Check: If the input array arr is null or empty, return "-1".
+
+-Prefix Initialization: Start with the first string in the array as the initial prefix.
+
+-Iterate through Strings: For each subsequent string in the array:
+Use indexOf to check if the current prefix is at the start of the string.
+If not, shorten the prefix by removing the last character and repeat the check.
+If the prefix becomes empty, return "-1".
+Condition Check (arr[i].indexOf(prefix) != 0):
+The indexOf method checks if the prefix appears at the beginning of arr[i].
+arr[i].indexOf(prefix) == 0 means that the prefix is found at the start of arr[i].
+If arr[i].indexOf(prefix) != 0, it means the current prefix is not at the start of arr[i].
+Reducing the Prefix (prefix = prefix.substring(0, prefix.length() - 1)):
+If the prefix is not at the start of arr[i], the prefix is shortened by one character from the end.
+prefix.substring(0, prefix.length() - 1) creates a new substring of prefix excluding the last character.
+This step is repeated until the prefix matches the start of arr[i] or becomes empty.
+Check for Empty Prefix (if (prefix.isEmpty())):
+After reducing the prefix, if it becomes empty (prefix.isEmpty()), it means there is no common prefix among the strings.
+In this case, the function returns -1 immediately.
+
+-Result: After processing all strings, the prefix variable holds the longest common prefix or it has become empty, in which case we return "-1".
