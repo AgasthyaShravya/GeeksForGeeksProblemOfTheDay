@@ -1,0 +1,50 @@
+15-08-2024
+
+class Solution {
+    
+    public Node reverse(Node head) {
+        Node prev = null;
+        Node current = head;
+        Node next = null;
+        
+        while (current != null) {
+            next = current.next;  // Store next
+            current.next = prev;   // Reverse current node's pointer
+            prev = current;        // Move pointers one position ahead
+            current = next;
+        }
+        return prev;  // New head is the previous node
+    }
+
+    public Node addOne(Node head) {
+        // Step 1: Reverse the linked list
+        head = reverse(head);
+        
+        // Step 2: Add one to the reversed list
+        Node current = head;
+        int carry = 1;  // We need to add 1
+        
+        while (current != null) {
+            int sum = current.data + carry;
+            carry = sum / 10;  // If sum >= 10, we have a carry
+            current.data = sum % 10;  // Update current node's data
+            
+            if (carry == 0) {
+                break;  // No need to propagate the carry further
+            }
+            
+            // Move to the next node
+            if (current.next == null && carry > 0) {
+                current.next = new Node(carry);  // Add a new node if we still have a carry
+                carry = 0;
+            }
+            current = current.next;
+        }
+        
+        // Step 3: Reverse the list again to restore the original order
+        head = reverse(head);
+        
+        return head;
+    }
+
+}
