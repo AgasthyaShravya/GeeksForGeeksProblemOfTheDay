@@ -1,0 +1,55 @@
+class Solution {
+    private int[] parent = new int[26];
+    private int[] rank = new int[26];
+    private int find(int u) {
+        if (parent[u] != u) {
+            parent[u] = find(parent[u]);
+        }
+        return parent[u];
+    }
+    private void union(int u, int v) {
+        int rootU = find(u);
+        int rootV = find(v);
+        if (rootU != rootV) {
+            if (rank[rootU] > rank[rootV]) {
+                parent[rootV] = rootU;
+            } else if (rank[rootU] < rank[rootV]) {
+                parent[rootU] = rootV;
+            } else {
+                parent[rootV] = rootU;
+                rank[rootU]++;
+            }
+        }
+    }
+    public int isCircle(String arr[]) {
+        for (int i = 0; i < 26; i++) {
+            parent[i] = i;
+            rank[i] = 0;
+        }
+        int[] inDegree = new int[26];
+        int[] outDegree = new int[26];
+        for (String str : arr) {
+            int firstChar = str.charAt(0) - 'a';
+            int lastChar = str.charAt(str.length() - 1) - 'a';
+            outDegree[firstChar]++;
+            inDegree[lastChar]++;
+            union(firstChar, lastChar);
+        }
+        int startVertex = -1;
+        for (int i = 0; i < 26; i++) {
+            if (inDegree[i] > 0 || outDegree[i] > 0) {
+                if (startVertex == -1) {
+                    startVertex = i;
+                } else if (find(i) != find(startVertex)) {
+                    return 0;
+                }
+            }
+        }
+        for (int i = 0; i < 26; i++) {
+            if (inDegree[i] != outDegree[i]) {
+                return 0; 
+            }
+        }
+        return 1;
+    }
+}
