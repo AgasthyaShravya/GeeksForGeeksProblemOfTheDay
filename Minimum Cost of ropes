@@ -1,17 +1,17 @@
 class Solution {
     public long minCost(long[] arr) {
         PriorityQueue<Long> pq = new PriorityQueue<>();
-        for (long rope : arr) {
-            pq.add(rope);
+        for (long r : arr) {
+            pq.add(r);
         }
-        long totalCost = 0;
+        long total = 0;
         while (pq.size() > 1) {
-            long first = pq.poll();
-            long second = pq.poll();
-            long cost = first + second;
-            totalCost += cost;
+            long a = pq.poll();
+            long b = pq.poll();
+            long cost = a + b;
+            total += cost;
             pq.add(cost);
         }
-        return totalCost;
+        return total;
     }
 }
