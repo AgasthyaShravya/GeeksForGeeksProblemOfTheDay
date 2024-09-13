@@ -1,0 +1,30 @@
+class Solution {
+    // Function to convert a binary tree into its mirror tree.
+    void mirror(Node node) {
+        if (node == null) {
+            return;  
+        }
+        Queue<Node> queue = new LinkedList<>();
+        queue.add(node);
+        while (!queue.isEmpty()) {
+            Node current = queue.poll();
+            Node temp = current.left;
+            current.left = current.right;
+            current.right = temp;
+            if (current.left != null) {
+                queue.add(current.left);
+            }
+            if (current.right != null) {
+                queue.add(current.right);
+            }
+        }
+    }
+    void inorder(Node node) {
+        if (node == null) {
+            return;
+        }
+        inorder(node.left);
+        System.out.print(node.data + " ");
+        inorder(node.right);
+    }
+}
