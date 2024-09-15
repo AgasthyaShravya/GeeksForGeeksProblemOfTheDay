@@ -1,0 +1,47 @@
+/*class Node
+{
+	Node left, right;
+	int data;
+	
+	Node(int d)
+	{
+		data = d;
+		left = right = null;
+	}
+	
+}*/
+
+//This function should return head to the DLL
+
+class Solution
+{
+    Node prev = null;
+    Node bToDLL(Node root)
+    {
+        if (root == null) {
+            return null;
+        }
+        Node head = convertToDLL(root);
+        while (head.left != null) {
+            head = head.left;
+        }
+        return head;
+    }
+    Node convertToDLL(Node node) {
+        if (node == null) {
+            return null;
+        }
+        if (node.left != null) {
+            convertToDLL(node.left);
+        }
+        if (prev != null) {
+            prev.right = node; 
+            node.left = prev;  
+        }
+        prev = node;
+        if (node.right != null) {
+            convertToDLL(node.right);
+        }
+        return node;
+    }
+}
