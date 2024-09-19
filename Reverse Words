@@ -1,0 +1,6 @@
+String reverseWords(String str) {
+        // code here
+        String[] words = str.split("\\.");
+        Collections.reverse(Arrays.asList(words));
+        return String.join(".", words);
+    }
