@@ -1,0 +1,38 @@
+class Solution {
+    Node copyList(Node head) {
+        if (head == null) {
+            return null;
+        }
+        
+        Node curr = head;
+        while (curr != null) {
+            Node clone = new Node(curr.data);
+            clone.next = curr.next;
+            curr.next = clone;
+            curr = clone.next;
+        }
+        
+        curr = head;
+        while (curr != null) {
+            if (curr.random != null) {
+                curr.next.random = curr.random.next;
+            }
+            curr = curr.next.next;
+        }
+        
+        curr = head;
+        Node cloneHead = head.next;
+        Node temp = cloneHead;
+        
+        while (curr != null) {
+            curr.next = curr.next.next;
+            if (temp.next != null) {
+                temp.next = temp.next.next;
+            }
+            curr = curr.next;
+            temp = temp.next;
+        }
+        
+        return cloneHead;
+    }
+}
