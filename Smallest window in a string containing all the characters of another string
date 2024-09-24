@@ -1,0 +1,48 @@
+class Solution {
+    
+    public static String smallestWindow(String s, String p) {
+        if (s.length() < p.length()) {
+            return "-1";
+        }
+        HashMap<Character, Integer> pFreq = new HashMap<>();
+        for (char ch : p.toCharArray()) {
+            pFreq.put(ch, pFreq.getOrDefault(ch, 0) + 1);
+        }
+
+        int start = 0, minLength = Integer.MAX_VALUE, minStart = 0;
+        int count = 0;  
+        HashMap<Character, Integer> windowFreq = new HashMap<>();
+
+        for (int end = 0; end < s.length(); end++) {
+            char endChar = s.charAt(end);
+
+            windowFreq.put(endChar, windowFreq.getOrDefault(endChar, 0) + 1);
+
+            if (pFreq.containsKey(endChar) && windowFreq.get(endChar) <= pFreq.get(endChar)) {
+                count++;
+            }
+
+            while (count == p.length()) {
+                if (end - start + 1 < minLength) {
+                    minLength = end - start + 1;
+                    minStart = start;
+                }
+
+                char startChar = s.charAt(start);
+                windowFreq.put(startChar, windowFreq.get(startChar) - 1);
+                
+                if (pFreq.containsKey(startChar) && windowFreq.get(startChar) < pFreq.get(startChar)) {
+                    count--;
+                }
+                
+                start++;  
+            }
+        }
+
+        if (minLength == Integer.MAX_VALUE) {
+            return "-1";
+        }
+
+        return s.substring(minStart, minStart + minLength);
+    }
+}
