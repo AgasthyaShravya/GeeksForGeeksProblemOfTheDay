@@ -1,0 +1,48 @@
+/* Structure of class Node is
+class Node
+{
+    int data;
+    Node next;
+
+    Node(int d)
+    {
+        data = d;
+        next = null;
+    }
+}*/
+
+class Solution {
+    boolean isPalindrome(Node head) {
+        if (head == null || head.next == null) {
+            return true; 
+        }
+        Node slow = head, fast = head;
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        Node secondHalfHead = reverseList(slow);
+        Node firstHalfHead = head;
+        Node secondHalfIter = secondHalfHead;
+        while (secondHalfIter != null) {
+            if (firstHalfHead.data != secondHalfIter.data) {
+                reverseList(secondHalfHead); 
+                return false;
+            }
+            firstHalfHead = firstHalfHead.next;
+            secondHalfIter = secondHalfIter.next;
+        }
+        reverseList(secondHalfHead); 
+        return true;
+    }
+    private Node reverseList(Node head) {
+        Node prev = null, curr = head, next = null;
+        while (curr != null) {
+            next = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = next;
+        }
+        return prev;
+    }
+}
