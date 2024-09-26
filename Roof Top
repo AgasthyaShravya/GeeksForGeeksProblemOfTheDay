@@ -1,0 +1,15 @@
+class Solution {
+    public int maxStep(int arr[]) {
+        int maxSteps = 0;
+        int start = 0; 
+        for (int end = 1; end < arr.length; end++) {
+            if (arr[end] > arr[end - 1]) {
+                maxSteps = Math.max(maxSteps, end - start);
+            } else {
+                start = end;
+            }
+        }
+        
+        return maxSteps;
+    }
+}
