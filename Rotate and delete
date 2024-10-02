@@ -1,0 +1,12 @@
+
+class Solution {
+    public static int rotateDelete(ArrayList<Integer> list) {
+        // code here
+         int k=1;
+        while(list.size()>1){
+            list.add(0,list.remove(list.size()-1));
+            list.remove(Math.max(0,list.size()-k++));
+        }
+        return list.get(0);
+    }
+}
