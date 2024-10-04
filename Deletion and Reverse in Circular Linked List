@@ -1,0 +1,61 @@
+class Solution {
+    // Function to delete a node from the circular linked list
+    Node deleteNode(Node head, int key) {
+        if (head == null) return null;
+
+        // Single node case, if head contains the key
+        if (head.data == key && head.next == head) {
+            return null;  // only one node in the list
+        }
+
+        Node curr = head, prev = null;
+
+        // Case when the head contains the key and there's more than one node
+        if (head.data == key) {
+            // Find the last node and adjust its next to the second node
+            Node last = head;
+            while (last.next != head) {
+                last = last.next;
+            }
+            // Set the new head
+            head = head.next;
+            // Point last node to new head
+            last.next = head;
+            return head;
+        }
+
+        // Otherwise, find the node to be deleted
+        do {
+            prev = curr;
+            curr = curr.next;
+            if (curr.data == key) {
+                prev.next = curr.next;  // unlink the node
+                return head;
+            }
+        } while (curr != head);
+
+        return head;
+    }
+
+    // Function to reverse a circular linked list
+    Node reverse(Node head) {
+        if (head == null || head.next == head) return head;
+
+        Node prev = null, curr = head, next = null;
+        Node tail = head;
+
+        // Traverse the list and reverse the links
+        do {
+            next = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = next;
+        } while (curr != head);
+
+        // Adjust the circular connection
+        head.next = prev;
+        head = prev;
+
+        return head;
+    }
+}
