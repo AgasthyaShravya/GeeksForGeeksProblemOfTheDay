@@ -1,0 +1,44 @@
+class Node {
+    int data;
+    Node right, down;
+
+    Node(int data) {
+        this.data = data;
+        right = null;
+        down = null;
+    }
+}
+
+class Solution {
+    static Node construct(int arr[][]) {
+        int n = arr.length;  // size of matrix (n x n)
+
+        // Create a 2D array of nodes
+        Node[][] nodeMatrix = new Node[n][n];
+
+        // Create nodes for each element in the matrix
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                nodeMatrix[i][j] = new Node(arr[i][j]);
+            }
+        }
+
+        // Set the right and down pointers for each node
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                // Link the right pointer
+                if (j < n - 1) {
+                    nodeMatrix[i][j].right = nodeMatrix[i][j + 1];
+                }
+
+                // Link the down pointer
+                if (i < n - 1) {
+                    nodeMatrix[i][j].down = nodeMatrix[i + 1][j];
+                }
+            }
+        }
+
+        // The head of the linked list is the node at the top-left corner
+        return nodeMatrix[0][0];
+    }
+}
