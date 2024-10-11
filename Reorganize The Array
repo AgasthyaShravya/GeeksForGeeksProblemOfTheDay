@@ -1,0 +1,28 @@
+import java.util.List;
+
+class Solution {
+    public List<Integer> rearrange(List<Integer> arr) {
+        int n = arr.size();
+
+        // Traverse the list and place elements in their correct positions
+        for (int i = 0; i < n; i++) {
+            while (arr.get(i) != -1 && arr.get(i) != i) {
+                // Swap arr[i] with arr[arr[i]]
+                int correctIndex = arr.get(i);
+                // Swap elements
+                int temp = arr.get(correctIndex);
+                arr.set(correctIndex, arr.get(i));
+                arr.set(i, temp);
+            }
+        }
+
+        // Replace all elements that are not in their correct positions with -1
+        for (int i = 0; i < n; i++) {
+            if (arr.get(i) != i) {
+                arr.set(i, -1);
+            }
+        }
+
+        return arr;
+    }
+}
