@@ -1,0 +1,18 @@
+class Solution {
+    public void deleteAlt(Node head) {
+        if (head == null) {
+            return;
+        }
+
+        Node current = head;
+
+        // Traverse the linked list
+        while (current != null && current.next != null) {
+            // Skip the next node (delete the alternate node)
+            current.next = current.next.next;
+
+            // Move to the next node
+            current = current.next;
+        }
+    }
+}
