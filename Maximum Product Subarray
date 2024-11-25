@@ -1,0 +1,31 @@
+class Solution {
+    // Function to find maximum product subarray
+    int maxProduct(int[] arr) {
+        int n = arr.length;
+        if (n == 0) return 0;
+
+        // Initialize variables to track maximum and minimum product up to the current index
+        int maxProduct = arr[0];
+        int minProduct = arr[0];
+        int result = arr[0];
+
+        // Traverse the array starting from the second element
+        for (int i = 1; i < n; i++) {
+            // If the current element is negative, swap maxProduct and minProduct
+            if (arr[i] < 0) {
+                int temp = maxProduct;
+                maxProduct = minProduct;
+                minProduct = temp;
+            }
+
+            // Update maxProduct and minProduct for the current index
+            maxProduct = Math.max(arr[i], maxProduct * arr[i]);
+            minProduct = Math.min(arr[i], minProduct * arr[i]);
+
+            // Update the result with the maximum product found so far
+            result = Math.max(result, maxProduct);
+        }
+
+        return result;
+    }
+}
