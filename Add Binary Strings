@@ -1,0 +1,24 @@
+class Solution {
+    public String addBinary(String s1, String s2) {
+        int i = s1.length() - 1; // Pointer for s1
+        int j = s2.length() - 1; // Pointer for s2
+        int carry = 0; // To hold carry value during addition
+        StringBuilder result = new StringBuilder(); // To store the result binary string
+        
+        // Process both strings from the least significant digit to the most significant
+        while (i >= 0 || j >= 0 || carry > 0) {
+            int bit1 = (i >= 0) ? s1.charAt(i) - '0' : 0; // Get bit from s1, if exists
+            int bit2 = (j >= 0) ? s2.charAt(j) - '0' : 0; // Get bit from s2, if exists
+            
+            int sum = bit1 + bit2 + carry; // Sum the bits and carry
+            result.append(sum % 2); // Append the resulting bit (0 or 1)
+            carry = sum / 2; // Update the carry
+            
+            i--; // Move to the next bit in s1
+            j--; // Move to the next bit in s2
+        }
+        
+        // The result is built in reverse order, so reverse it before returning
+        return result.reverse().toString();
+    }
+}
