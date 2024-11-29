@@ -19,6 +19,15 @@ class Solution {
         }
         
         // The result is built in reverse order, so reverse it before returning
-        return result.reverse().toString();
+        String finalResult = result.reverse().toString();
+        
+        // Remove leading zeros
+        int firstNonZero = 0;
+        while (firstNonZero < finalResult.length() && finalResult.charAt(firstNonZero) == '0') {
+            firstNonZero++;
+        }
+        
+        // Return the result without leading zeros, or "0" if the result is empty
+        return firstNonZero == finalResult.length() ? "0" : finalResult.substring(firstNonZero);
     }
 }
