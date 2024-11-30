@@ -1,0 +1,31 @@
+import java.util.*;
+
+class Solution {
+    // Function is to check whether two strings are anagrams of each other or not.
+    public static boolean areAnagrams(String s1, String s2) {
+        // If lengths are not the same, they cannot be anagrams
+        if (s1.length() != s2.length()) {
+            return false;
+        }
+
+        // Create a frequency map for characters in the first string
+        int[] charCount = new int[26];
+        for (char c : s1.toCharArray()) {
+            charCount[c - 'a']++;
+        }
+
+        // Subtract the frequency for characters in the second string
+        for (char c : s2.toCharArray()) {
+            charCount[c - 'a']--;
+        }
+
+        // If all frequencies are zero, the strings are anagrams
+        for (int count : charCount) {
+            if (count != 0) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+}
