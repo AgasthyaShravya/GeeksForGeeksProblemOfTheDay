@@ -1,0 +1,22 @@
+import java.util.Arrays;
+
+class Solution {
+    // Function to find hIndex
+    public int hIndex(int[] citations) {
+        // Sort the citations in descending order
+        Arrays.sort(citations);
+        int n = citations.length;
+        int hIndex = 0;
+
+        // Iterate through the sorted array from the highest citation
+        for (int i = 0; i < n; i++) {
+            // Count the number of papers with at least `n - i` citations
+            if (citations[n - 1 - i] >= i + 1) {
+                hIndex = i + 1;
+            } else {
+                break;
+            }
+        }
+        return hIndex;
+    }
+}
