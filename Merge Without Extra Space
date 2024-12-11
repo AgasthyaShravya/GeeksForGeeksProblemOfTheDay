@@ -1,27 +1,25 @@
 class Solution {
+    // Function to merge the arrays.
     public void mergeArrays(int a[], int b[]) {
         int n = a.length;
         int m = b.length;
-        
-        // Traverse arrays a[] and b[] from last element of a[] and first element of b[]
-        for (int i = n - 1; i >= 0; i--) {
-            // If the current element in a[] is greater than the first element in b[]
-            if (a[i] > b[0]) {
-                // Swap a[i] and b[0]
+
+        // Start comparing elements from the end of `a` and the beginning of `b`
+        int i = n - 1, j = 0;
+
+        while (i >= 0 && j < m) {
+            // Swap if the element in `a` is greater than the element in `b`
+            if (a[i] > b[j]) {
                 int temp = a[i];
-                a[i] = b[0];
-                b[0] = temp;
-                
-                // Now, ensure that b[] remains sorted by shifting elements in b[]
-                int first = b[0];
-                int k;
-                for (k = 1; k < m && b[k] < first; k++) {
-                    b[k - 1] = b[k];
-                }
-                b[k - 1] = first;
+                a[i] = b[j];
+                b[j] = temp;
             }
+            i--;
+            j++;
         }
-        
-        // At this point, the arrays are merged in-place
+
+        // Sort both arrays again to ensure overall order
+        Arrays.sort(a);
+        Arrays.sort(b);
     }
 }
