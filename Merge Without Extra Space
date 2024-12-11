@@ -1,0 +1,27 @@
+class Solution {
+    public void mergeArrays(int a[], int b[]) {
+        int n = a.length;
+        int m = b.length;
+        
+        // Traverse arrays a[] and b[] from last element of a[] and first element of b[]
+        for (int i = n - 1; i >= 0; i--) {
+            // If the current element in a[] is greater than the first element in b[]
+            if (a[i] > b[0]) {
+                // Swap a[i] and b[0]
+                int temp = a[i];
+                a[i] = b[0];
+                b[0] = temp;
+                
+                // Now, ensure that b[] remains sorted by shifting elements in b[]
+                int first = b[0];
+                int k;
+                for (k = 1; k < m && b[k] < first; k++) {
+                    b[k - 1] = b[k];
+                }
+                b[k - 1] = first;
+            }
+        }
+        
+        // At this point, the arrays are merged in-place
+    }
+}
