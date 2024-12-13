@@ -1,0 +1,21 @@
+class Solution {
+    public int findMin(int[] arr) {
+        int left = 0, right = arr.length - 1;
+
+        while (left < right) {
+            int mid = left + (right - left) / 2;
+
+            // If the middle element is greater than the rightmost element, the minimum is on the right side.
+            if (arr[mid] > arr[right]) {
+                left = mid + 1;
+            }
+            // Otherwise, the minimum is on the left side or it is the middle element.
+            else {
+                right = mid;
+            }
+        }
+
+        // When left == right, we found the minimum element.
+        return arr[left];
+    }
+}
