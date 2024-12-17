@@ -1,0 +1,47 @@
+import java.util.Arrays;
+
+class Solution {
+    public static int aggressiveCows(int[] stalls, int k) {
+        // Step 1: Sort the stalls
+        Arrays.sort(stalls);
+
+        // Step 2: Initialize binary search boundaries
+        int low = 1; // Minimum possible distance
+        int high = stalls[stalls.length - 1] - stalls[0]; // Maximum possible distance
+        int result = 0;
+
+        // Step 3: Perform binary search
+        while (low <= high) {
+            int mid = low + (high - low) / 2;
+
+            // Check if we can place cows with at least 'mid' distance
+            if (canPlaceCows(stalls, k, mid)) {
+                result = mid; // Update result
+                low = mid + 1; // Try for a larger minimum distance
+            } else {
+                high = mid - 1; // Try for a smaller minimum distance
+            }
+        }
+
+        return result;
+    }
+
+    // Helper function to check if we can place k cows with at least 'minDist' distance
+    private static boolean canPlaceCows(int[] stalls, int k, int minDist) {
+        int countCows = 1; // Place the first cow in the first stall
+        int lastPlaced = stalls[0]; // Position of the last placed cow
+
+        for (int i = 1; i < stalls.length; i++) {
+            if (stalls[i] - lastPlaced >= minDist) {
+                countCows++; // Place another cow
+                lastPlaced = stalls[i]; // Update last placed position
+
+                if (countCows == k) {
+                    return true; // Successfully placed all cows
+                }
+            }
+        }
+
+        return false; // Not possible to place all cows with 'minDist' distance
+    }
+}
