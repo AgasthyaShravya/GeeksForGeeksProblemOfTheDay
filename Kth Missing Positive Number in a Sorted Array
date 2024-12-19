@@ -1,0 +1,21 @@
+class Solution {
+    public int kthMissing(int[] arr, int k) {
+        int left = 0, right = arr.length - 1;
+
+        // Binary search for the smallest index where missing >= k
+        while (left <= right) {
+            int mid = left + (right - left) / 2;
+            int missing = arr[mid] - (mid + 1); // Total missing numbers up to arr[mid]
+
+            if (missing < k) {
+                left = mid + 1;
+            } else {
+                right = mid - 1;
+            }
+        }
+
+        // After the loop, 'left' is the smallest index where missing >= k
+        // The k-th missing number is before arr[left] by calculating the offset
+        return left + k;
+    }
+}
