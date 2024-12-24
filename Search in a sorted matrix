@@ -1,0 +1,29 @@
+class Solution {
+    // Function to search a given number in row-column sorted matrix.
+    public boolean searchMatrix(int[][] mat, int x) {
+        int n = mat.length;    // Number of rows
+        int m = mat[0].length; // Number of columns
+
+        // Perform binary search on the flattened matrix
+        int left = 0, right = n * m - 1;
+
+        while (left <= right) {
+            int mid = left + (right - left) / 2;
+
+            // Convert the 1D index back to 2D indices
+            int row = mid / m;
+            int col = mid % m;
+            int midElement = mat[row][col];
+
+            if (midElement == x) {
+                return true; // Found the target
+            } else if (midElement < x) {
+                left = mid + 1; // Search the right half
+            } else {
+                right = mid - 1; // Search the left half
+            }
+        }
+
+        return false; // Element not found
+    }
+}
